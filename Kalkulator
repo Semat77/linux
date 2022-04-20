@@ -1,0 +1,20 @@
+#Napisz skrypt wyliczajacy sume liczb wpisanych z 
+#klawiatury
+#Zakladamy ze wszystkie liczby sa poprawne
+echo "Ten skrypt sumuje podane ponizej liczby calkowite: "
+echo -n "Podaj sekwencje liczb: "
+read CIAG
+set $CIAG
+echo "Zadana lista liczb calkowitych: $@"
+echo "Ilosc zadanych liczb: $#"
+SUMA=0
+ILOSC=$#
+for (( licz=1 ; $licz <= $ILOSC ; licz++ )) ; do
+        echo "Krok: $1"
+        echo "Argument: $licz"
+        SUMA=`expr $SUMA + $1`
+        echo "SUMA: $SUMA"
+        shift
+        echo "Pozostale argumenty: $@"
+done
+echo "SUMA KONCOWA: $SUMA"
