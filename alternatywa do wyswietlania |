@@ -1,0 +1,7 @@
+# Napisz skrypt ktory odczytuje linia
+# po linii zawartosc zadanego pliku testowego
+# wczytywanie powinno wykorzystywac konstrukcje | - wyjscie jednego polecenia jest przekierowane 
+PLIK="ala.txt"
+cat "$PLIK" | while read LINIA ; do
+        echo $LINIA
+done
