@@ -1,0 +1,31 @@
+# Napisz skrypt, ktory generuje automatyznie tabelki w postaci jak ponizej.
+# przykladowa tabelka o wymiarach 2 na 5 (wiersze kolumny) wyglada nastepujaco 
+# +-+-+-+-+-+
+# | | | | | |
+# +-+-+-+-+-+
+# | | | | | |
+# +-+-+-+-+-+
+# Parametry tej tabelki podajemy na zachete ze strony uruchumionego skryptu
+# Nalezy sprawdzic poprawnosc tych parametrow, tzn czy sa wieksze od zera.
+echo -n "Podaj wysokosc tabeli (ilosc wierszy): "
+read WYSOKOSC
+echo -n "Podaj szerokosc tabeli (ilosc kolumn): "
+read SZEROKOSC
+if [ $WYSOKOSC -le 0 -o $SZEROKOSC -le 0 ] ; then
+        echo "Wymiary tabelki powinny byc wieksze od zera!"
+else
+for (( y=1 ; $y <= $WYSOKOSC ; y++ )) ; do
+                for (( x=1 ; $x <= $SZEROKOSC ; x++ )) ; do
+                        echo -n "+-"
+                done
+                echo "+"
+        for (( x=1 ; $x <= $SZEROKOSC ; x++ )) ; do
+                echo -n "| "
+        done
+        echo "|"
+done
+        for (( x=1 ; $x <= SZEROKOSC ; x++ )) ; do
+                echo -n "+-"
+        done
+        echo "+"
+fi
