@@ -1,0 +1,36 @@
+#Napisz skrypt, ktory sprawdza wszystkie plliki z rozszerzeniem .long
+#Znajdujace sie w biezacym katalogu, pod katem wystepowania w tych plikach slowa#fail 
+#Efektem dzialania tego skryptu jest plik z wygenerowanym raportem
+#Raport ten zawiera wyniki sprawdzenia: liczbe wszystkich plikow z 
+#rozszerzeniem .log oraz liczbe plikow zawierajacych w swej tresci 
+#przynajmniej jedno slowo fail
+#nazwa pliku jest podawana jako argument wywolania tego skryptu
+#Nalezy wykrywac i sygnalizowac sytuacje w ktorych nie podano zadnego argumentu #albo zbyt duzo argumentow.
+#Przykladowy raport:
+#Biezacy katalog zawiera x plikow z rozszerzeniem .log
+#       w tym 12: n plikow zawiera przynajmniej jedno slowo fail
+if [ $# -ne 1 ] ; then
+        echo "Skrypt powinien byc wywolany z jednym argumentem - nazwa pliku raportu."
+else
+        RAPORT=$1
+        LPLOG=0
+        LPFAIL=0
+        for PLIK in *.log ; do
+                if [ -f $PLIK ] ; then
+                        let LPLOG++
+                        LWFAIL=0
+                        while read LINIA ; do
+                                for SLOWO in $LINIA ; do
+                                        if [ $SLOWO == "fail" ] ; then
+                                                let LWFAIL
+                                        fi
+                                done
+                        done < "$PLIK"
+                        if [ $LWFAIL -gt 0 ] ; then
+                                let LPFAIL++
+                        fi
+                fi
+        done
+        echo "Biezacy katalog zawiera $LPLOG plikow z rozszerzeniem .log" > $RAPORT
+        echo "  w tym: $LPFAIL plikow zawiera przynajmniej jedno slow fail" >> $RAPORT
+fi
