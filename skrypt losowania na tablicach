@@ -1,0 +1,13 @@
+#Napisz skrypt ktory za kazdym razem dokonuje
+#czynnosci zadanej z listy czynnosci znajdujacych sie w 
+#predefiniowanej tablicy 
+#zmienna $RANDOM generuje calkowita liczbe losowa z zakresu 0 - 32767
+#Nalezy pamietac, ze rozklad tego generatora calkowitych liczb losowych
+#Nie jest rownomierny - przyklad
+#dla $[#czynnosc] = 30000 wyrazenie $RANDOM % $[#czynnosc[@]}
+#wylosuje elementy od 0 do 2767 dwa razy czesciej niz pozostale
+#
+czynnosc=(kino spacer wyklad)
+k=$(( $RANDOM % ${#czynnosc[@]} ))
+echo "k=$k"
+echo "Teraz: ${czynnosc[k]}"
