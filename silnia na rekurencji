@@ -1,0 +1,20 @@
+#Nazwa ()
+# {
+#       instrukcje
+# }
+#
+#Przyklad: napisz podprogram obliczania silni 
+#
+silnia ()
+{
+if [ $1 -eq 0 ] ; then
+        WYNIK=1
+else
+        silnia `expr $1 - 1`
+        WYNIK=`expr $WYNIK \* $1`
+        echo "Argument: $1 WYNIK: $WYNIK"
+fi
+}
+# wywolanie
+silnia $1
+echo "Wynik koncowy: $WYNIK"
