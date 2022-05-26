@@ -1,0 +1,18 @@
+echo "Ten skrypt sumuje podane ponizej liczby calkowite: "
+echo -n "Podaj sekwencje liczb: "
+read CIAG
+set $CIAG
+echo "Zadana lista liczb calkowitych: $@"
+echo "Ilosc zadanych liczb: $#"
+SUMA=0
+ILOSC=$#
+for((licz=1 ; $licz <= $ILOSC ; licz++)) ; do
+  echo "Krok: $LICZ"
+  echo "Argument: $1"
+  SUMA=`expr $SUMA + $1`
+  echo "Suma: $SUMA"
+  shift
+  echo "Pozostale argumenty: $@"
+
+ done
+ echo "SUMA KONCOWA: $SUMA"
