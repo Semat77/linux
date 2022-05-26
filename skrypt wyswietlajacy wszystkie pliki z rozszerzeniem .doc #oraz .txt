@@ -1,0 +1,8 @@
+#Napisz skrypt wyswietlajacy wszystkie pliki z rozszerzeniem .doc
+#oraz .txt znajdujace sie w biezacym katalogu, wypisujac nastepujacy komunikat: 
+#Plik o nazwie <nazwa> jes plikiem tekstowym
+
+
+for z in *.doc* ; do
+	echo "Plik o nazwie $z jest plikiem tekstowym"
+done
