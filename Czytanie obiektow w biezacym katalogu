@@ -1,0 +1,38 @@
+#Napisz skrypt ktory dla kazdego pliku, znajdujacego sie w biezacym katalogu
+# o nazwie spelniajacej nastepujace warunki: 
+# 1. rozpoczynajacej sie od dowolnego znaku
+# 2. na kolejnych znakach posiadajacych string 2017
+# 3. i dalej mogacych miec dowolne znaki w nazwie pliku, 
+# 4. Posiadajacy roszerzenie nazwy .txt#okreslii ilosc zaawartych w nim
+#poszczegolnych liczb calkowitych: parzystych
+# i nieparzystych i zero, ze dane zawarte w
+#plikach sa poprawne - tzn.
+# pliki nie zawieraja innych danych niz wymienione powyzej
+# przycych miec dowolne znaki w nazwie pliku, 
+# 4. Posiadajacy roszerzenie nazwy .txt#okreslii ilosc zaawartych w nim
+#poszczegolnych liczb przkladowy komunikat: Plik a201701.txt zawiera 10 parzystych i 5 nieparzystych liczb oraz 5 liczb # 0
+
+#Czytanie obiektow w biezacym katalogu
+for PLIK in `ls ?2017*.txt` ; do
+ if [ -f $PLIK ] ; then #czy jest plikiem
+  LP=0
+  LNP=0
+  LZ=0
+  while read LINIA ; do
+   for LICZBA in $LINIA ; do
+    if [ $LICZBA -eq 0 ] ; then #Licznik liczb 0
+     let LZ++
+    else
+     WYNIK=$(($LICZBA %2)) #Licznik modulo
+     if [ $WYNIK -eq 0 ] ; then
+      let LP++    		#Czy liczba jest parzysta/nieparzysta
+     else
+      let LNP++
+     fi
+    fi
+   done
+  done < "$PLIK"
+  echo "PLIK: $PLIK zawiera $LP parzystych i $LNP nieparzystych liczb"
+  echo "Oraz $LZ liczb zero."
+ fi
+done
