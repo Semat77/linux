@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+#Napisz skrypt ktory wypisze nazwe tych katalogow z katalogu biezacego, ktore zawieraja jednosczesnie#co najmniej dwa pliki do odczytu i co najmniej trzy pliki wykonywalne
+
+for KATALOG in * ; do #DLA WSZYSTKICH PLIKOW W DANYM FOLDERZE
+ if [ -d $KATALOG ] ; then #JEZELI JEST KATALOGIEM
+  cd $KATALOG #ZMIEN KATALOG
+   LR=0  #LICZNIKI
+   LX=0
+   for PLIK in * ; do
+    if [ -f $PLIK ] ; then #JEZELI JEST PLIKIEM
+     if [ -x $PLIK ] ; then #JEZELI JEST WYKONYWALNY
+      let LX++ #ZWIEKSZ LICZNIK O JEDEN
+     fi
+     if [ -r $PLIK ] ; then
+      let LR++
+     fi
+    fi
+   done
+   if [ $LR -gt 1 -a $LX -gt 2 ] ; then
+    echo "Katalog $KATALOG zawiera minimum dwa pliki do odczytu i trzy pliki wykonywalne."
+   fi
+   cd .. 
+ fi
+done
