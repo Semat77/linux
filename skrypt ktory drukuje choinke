@@ -1,0 +1,28 @@
+#Napisz skrypt ktory drukuje choinke z gwiazdek
+#Przykladowa choinka o podstawie 5 wyglada tak:
+#     *
+#    ***
+#   *****
+#     *
+#Jako argument wywolania tego skryptu jest podawana dolna krawedz choinki
+#Nalezy sprawdzic poprawnosc tego skryptu - musi byc nieparzysty i wiekszy od 4
+
+
+KRAWEDZ=$1
+LICZNIK=1
+
+if [ $(expr $KRAWEDZ % 2) > 0 -a $KRAWEDZ > 4 ] ; then
+                for((j=1 ; $j <= $(expr $KRAWEDZ % 2) ; j++)) ; do
+                        for((k=0; $k < $KRAWEDZ ; k++)) ; do
+                        echo -n " "
+                                if [ $j = $(expr $KRAWEDZ % 2) - $LICZNIK ] ; then
+                                        for((i=0 ; $i < $LICZNIK ; i++)) ; do
+                                                echo "*"
+                                        done
+                                fi
+                        
+                        done
+                echo ""
+                let LICZNIK+=2
+        done
+fi
