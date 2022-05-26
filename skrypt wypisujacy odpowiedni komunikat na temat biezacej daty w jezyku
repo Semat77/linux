@@ -1,0 +1,31 @@
+#Napisz skrypt wypisujacy odpowiedni komunikat na temat biezacej daty w jezyku
+#zaleznym od argumentu wywolania tego skryptu: 
+# dla a -> data w jezyku angielskim
+# dla p -> data w jezyku polskim
+#Komunikaty powinny miec odpowiednio nastepujaca postac: 
+# Today is Wednesday of march 2022
+# Dzisiaj jest sroda, 30 marca 2022 roku. 
+#Skrypt powinien byc wyposazony w sprawdzenie wywolania tego skryptu 
+#z dokladnie jednym argumentem
+
+if test $# != 1 ; then
+	echo "Program wymaga podania dokladnie jednego argumentu"
+else
+	case $1 in
+		a) "Wersja angielska" ;;
+		p) set `date` 
+			case $1 in 
+				Mo*) DZIEN=Poniedzialek ;;
+				Tue*) DZIEN=Wtorek ;;
+				We*) DZIEN=sroda ;;
+			esac
+			case $2 in 
+				Ja*) MIESIAC=styczen ;;
+				Feb*) MIESIAC=luty ;;
+				Ma*) MIESIAC=marzec ;;
+			esac
+			echo "Dzisiaj jest $DZIEN, $2 $MIESIAC $4 roku" ;;
+		
+			*)echo "Brak tej wersji" ;;
+	esac
+fi
