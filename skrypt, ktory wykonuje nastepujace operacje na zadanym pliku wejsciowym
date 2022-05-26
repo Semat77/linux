@@ -1,0 +1,33 @@
+#Napisz skrypt, ktory wykonuje nastepujace operacje na zadanym pliku wejsciowym
+#1. Linie, ktore zawieraja parzysta liczbe slow zostana zapisane
+#	w pliku o nazwie PARZYSTE
+#2. Linie, ktore zawieraja nieparzysta liczbe slow zostana zapisane w #	pliku o nazwie nieparzyste
+#3. Zostanie wypisany komunikat mowiacy o liczbie linii z parzysta i
+#	niearzytsta liczba slow
+#Nazwa pliku jest podawana jako argument wywolania tego skryptu.
+#Skrypt powinien zawierac mechanizmy sprawdzania poprawnosci
+#	uruchomienia tego skryptu, liczbe argumentow oraz istnienia
+#	oraz istnienia pliku wejsciowego
+
+if test $# != 1  ; then
+	echo "Potrzebny jest jeden dokladnie jeden argument"
+else
+	WEJSCIE=$1
+	LPAR=0
+	LNPAR=0
+	if [ ! -f $WEJSCIE ] ; then
+		echo "Plik wejsciowy o nazwie $WEJSCIE nie istnieje"
+	else
+		while read LINIA ; do
+			WYNIK=$((`echo $LINIA | wc -w` % 2))
+			if [ $WYNIK -eq 0 ] ; then
+				echo $LINIA >> PARZYSTE
+				let LPAR++			
+			else
+				echo $LINIA >> NIEPARZYSTE
+				let LNPAR++
+			fi
+		done < "$WEJSCIE"
+		echo "W pliku wejsciowym o nazwie $WEJSCIE bylo $LPAR lini z parzysta i $LNPAR z nieparzysta liczba slow"
+	fi
+fi
