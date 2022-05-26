@@ -1,0 +1,46 @@
+#!/usr/bin/bash
+#Napisz skrypt ktory wykona nastepujace operacje na pliku wejsciowym: 
+# 1. Do kazdej linii doda na jej poczatku tekst w postaci stringu "linia"
+# 	wraz z biezacym numerem linii (np. linia 45)
+# 2. Jezeli linia nie zawiera zadnych znakow, to w linii tej nalezy napisac komunikat
+# 	o nastepujacej tresci: "# << TA LINIA INTENCJONALNIE JEST PUSTA! >> "
+# 3. Napisz na koncu pliku informacje mowiace o  liczbie pustych i niepusctych liniach
+# 	pliku oraz liczbe znakow i slow zawartych w tym pliku.
+#Nazwa pliku wejsciowego jest podawana jako argument wywolania tego skryptu.
+#Skrypt powinien zawierac mechanizmy sprawdzania poprawnosci uruchomienia tego skryptu: 
+#liczbe argumentow (jeden) oraz istnienie pliku wejsciowego
+
+if [ $# -ne 1 ] ; then #SPRAWDZANIE ILOSCI ARGUMENTOW W SKRYPCIE
+ echo "Skrypt wymaga jednego argumentu - nazwy pliku"
+else
+  PLIKWE=$1
+  if [ ! -f $PLIKWE ] ; then #SPRAWDZANIE CZY PLIK ISTNIEJE
+   echo "Plik o podanej nazwie $PLIKWE nie istnieje w biezacym katalogu"
+  else
+   NRLINII=1
+   LLNP=0
+   LLP=0
+   LZ=0
+   LS=0
+   while read LINIA ; do #CZYTANIE PLIKU LINIA PO LINII
+    WYNIK=$((`echo $LINIA | wc -c` -1))
+     if [ $WYNIK -eq 0 ] ; then #JESLI LINIA NIE ZWIERA ZNAKOW TO JEST PUSTA
+       echo "# << TA LINIA INTENCJONALNIE JEST PUSTA! >>" >> PLIKWY
+       let LP++
+     else
+        let NRLINII++
+        echo "linia " $NRLINII " " $LINIA >> PLIKWY
+        let LLNP++
+        LZNAKOW=$((`echo $LINIA | wc -c` -1)) #LICZNIK ZNAKOW
+	LSLOW=$((`echo $LINIA | wc -w`)) #LICZNIK SLOW
+	LZ=`expr $LZ + $LZNAKOW` #PRZYPISYWANIE I INKREMENTACJA
+	LS=`expr $LS + $LSLOW`
+     fi
+   done < $PLIKWE
+    echo "Liczba linii pustych: $LLP" >> PLIKWY 
+    echo "Liczba linii niepustych: $LLNP" >> PLIKWY
+    echo "Liczba znakow: $LZ" >> PLIKWY
+    echo "Liczba slow: $LS" >> PLIKWY
+  fi
+fi
+#cp PLIKWY $PLIKWE
